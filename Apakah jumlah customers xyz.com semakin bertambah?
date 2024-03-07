@@ -1,0 +1,4 @@
+-- Selecting columns from the customer table
+-- Extract quarter from createDate using QUARTER(...) function and name it "quarter"
+-- Filter rows with createDate between January 1, 2004, and June 30, 2004
+-- Calculate total unique customers and name it "total_customers"
