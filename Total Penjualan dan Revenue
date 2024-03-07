@@ -1,0 +1,19 @@
+-- For orders_1
+-- Calculate Total Penjualan and Revenue for Quarter-1 (Jan, Feb, Mar) and Quarter-2 (Apr, Mei, Jun)
+-- Aggregate sum of quantity as total_penjualan and sum of quantity * priceEach as revenue
+-- Filter orders with status "Shipped"
+SELECT
+	SUM(quantity) AS total_penjualan,
+	SUM(quantity *priceEach) AS revenue
+FROM
+	orders_1
+WHERE
+	status = 'Shipped';
+
+SELECT
+	SUM(quantity) AS total_penjualan,
+	SUM(quantity *priceEach) AS revenue
+FROM
+	orders_2
+WHERE
+	status = 'Shipped';
