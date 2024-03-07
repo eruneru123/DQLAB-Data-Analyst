@@ -1,4 +1,24 @@
+--Penambahan jumlah customers dapat diukur dengan membandingkan total jumlah customers 
+--yang registrasi di periode saat ini dengan total jumlah customers yang registrasi diakhir periode sebelumnya.
 -- Selecting columns from the customer table
 -- Extract quarter from createDate using QUARTER(...) function and name it "quarter"
 -- Filter rows with createDate between January 1, 2004, and June 30, 2004
 -- Calculate total unique customers and name it "total_customers"
+-- Subquery (tabel_b) containing columns from the customer table
+    -- Extract quarter from createDate and filter rows by createDate
+-- Grouping total_customers by quarter
+SELECT 		
+	quarter,
+	COUNT(DISTINCT customerID) AS total_customers
+FROM
+	(SELECT
+	 	customerID,
+	 	createDate,
+	 	QUARTER(createDate) AS quarter
+	FROM
+	 	customer
+	WHERE
+		createDate BETWEEN '2004-01-01' AND '2004-06-30'
+	) AS tabel_b
+
+GROUP BY quarter;
