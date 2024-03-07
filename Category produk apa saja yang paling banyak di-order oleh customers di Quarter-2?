@@ -1,0 +1,29 @@
+-- Selecting columns from the orders_2 table
+-- Extracting the first 3 characters from productCode as the categoryID and filtering rows by status
+-- Create a subquery (tabel_c) containing columns from the orders_2 table
+-- Counting distinct orderNumber as total_order and summing up the quantity as total_penjualan
+-- Grouping by categoryID
+-- Sorting by total_order from highest to lowest
+SELECT *
+FROM (
+    SELECT
+        categoryID,
+        COUNT(DISTINCT orderNumber) AS total_order,
+        SUM(quantity) AS total_penjualan
+    FROM (
+        SELECT
+            productCode,
+            orderNumber,
+            quantity,
+            status,
+            LEFT(productCode, 3) AS categoryID
+        FROM
+            orders_2
+        WHERE
+            status = 'Shipped'
+    ) AS tabel_c
+    GROUP BY
+        categoryID
+) AS a
+ORDER BY
+    total_order DESC;
