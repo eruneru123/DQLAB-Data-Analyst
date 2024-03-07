@@ -1,0 +1,25 @@
+-- Selecting columns from the customer table
+-- Extract quarter from createDate using QUARTER(...) function and name it "quarter"
+-- Filter rows with createDate between January 1, 2004, and June 30, 2004
+-- Create a subquery (tabel_b) based on steps A&B
+-- Selecting customerID from orders_1 and orders_2, removing duplicates with DISTINCT, and combining both tables using UNION
+-- Filter tabel_b using the IN() operator with the SELECT statement from step 4, so only customerID with transactions (customerID recorded in orders table) are considered
+-- Calculate total unique customers (no duplicate customers) in the SELECT statement and name it "total_customers"
+-- Group total_customers by quarter and add this column in the select part
+SELECT quarter, COUNT(DISTINCT customerID) AS total_customers
+FROM (
+    -- Subquery (tabel_b) containing columns from the customer table
+    -- Extract quarter from createDate and filter rows by createDate
+    SELECT customerID, 
+           createDate, 
+           QUARTER(createDate) AS quarter
+    FROM customer
+    WHERE createDate BETWEEN '2004-01-01' AND '2004-06-30'
+) AS tabel_b
+WHERE customerID IN (
+    -- Subquery to select distinct customerID from orders_1 and orders_2 using UNION
+    SELECT DISTINCT customerID FROM orders_1
+    UNION
+    SELECT DISTINCT customerID FROM orders_2
+)
+GROUP BY quarter; -- Grouping total_customers by quarter
